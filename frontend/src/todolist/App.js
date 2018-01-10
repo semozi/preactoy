@@ -13,7 +13,7 @@ class App extends Component {
 		input : '',
     	todos: [
 			{  id:0, text: ' 리액트 소개1', checked:true },
-			{  id:1, text: ' 리액트 소개2', checked:true },
+			{  id:1, text: ' 리액트 소개42', checked:true },
 			{  id:2, text: ' 리액트 소개3', checked:false },
 			{  id:3, text: ' 리액트 소개4', checked:true },
 			{  id:4, text: ' 리액트 소개5', checked:true }
@@ -85,6 +85,26 @@ class App extends Component {
 
 	}
 
+
+	handleSort = (sortedList) =>{
+			const newList = new Array();
+			sortedList.map((x)=>{
+				const newObj = {};
+				newObj.id = x.content.props.id;
+				newObj.text = x.content.props.text;
+				newObj.checked  = x.content.props.checked;
+				newList.push(newObj);
+			}
+		)
+
+			// console.log(newList);
+		this.setState({
+			todos : newList
+		})
+
+	}
+
+
   	render() {
 
         return (
@@ -102,6 +122,8 @@ class App extends Component {
 					todos={this.state.todos}
 					onToggle={this.handleToggle}
 					onRemove={this.handleRemove}
+					onSort={this.handleSort}
+
 					/>
 
 	            </div>
