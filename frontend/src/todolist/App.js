@@ -7,126 +7,127 @@ import './style.css';
 
 class App extends Component {
 
-	id = 5;
+    id = 5;
 
-	state = {
-		input : '',
-    	todos: [
-			{  id:0, text: ' 리액트 소개1', checked:true },
-			{  id:1, text: ' 리액트 소개42', checked:true },
-			{  id:2, text: ' 리액트 소개3', checked:false },
-			{  id:3, text: ' 리액트 소개4', checked:true },
-			{  id:4, text: ' 리액트 소개5', checked:true }
-    		]
-	}
+    state = {
+        input: '',
+        todos: [
+            { id: 0, text: ' 리액트 소개1', checked: true },
+            { id: 1, text: ' 리액트 소개2', checked: true },
+            { id: 2, text: ' 리액트 소개3', checked: false },
+            { id: 3, text: ' 리액트 소개4', checked: true },
+            { id: 4, text: ' 리액트 소개5', checked: true }
+        ]
+    }
 
-	handleChange = (e) => {
-		this.setState({
-			input:e.target.value
-		});
-	}
+    handleChange = (e) => {
+        this.setState({
+            input: e.target.value
+        });
+    }
 
-  	handleCreate = () => {
-		const { input, todos } = this.state;
+    handleCreate = () => {
+        const { input, todos } = this.state;
 
-		if(input==='') return alert('내용을 입력해 주세요');
+        if (input === '') return alert('내용을 입력해 주세요');
 
-		this.setState({
-			input:'',
-			todos: todos.concat({
-				id:this.id++,
-				text:input,
-				checked : false
-			})
-		});
-	}
+        this.setState({
+            input: '',
+            todos: todos.concat({
+                id: this.id++,
+                text: input,
+                checked: false
+            })
+        });
+    }
 
-	handleKeyPress = (e) => {
-		if(e.key === 'Enter'){
-			this.handleCreate();
-		}
-	}
+    handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            this.handleCreate();
+        }
+    }
 
-	handleToggle = (id) => {
-		const {todos} = this.state;
+    handleToggle = (id) => {
+        const { todos } = this.state;
 
-		//id로 넘어온 값을 todos id와 비교)
-		//const index = (todos.findIndex(x => x.id === id);
-		const index = todos.map(x=>x.id).indexOf(id);
+        //id로 넘어온 값을 todos id와 비교)
+        //const index = (todos.findIndex(x => x.id === id);
+        const index = todos.map(x => x.id).indexOf(id);
 
-		//1. 새로운 배열복사
-		const newtodo = [...todos];
-		const newindex = newtodo[index];
+        //1. 새로운 배열복사
+        const newtodo = [...todos];
+        const newindex = newtodo[index];
 
-		//2. 새로운 배열에서 index의 값중에 checked를 not하여 덮어씀.
-		newtodo[index] = {
-			...newindex,
-			checked : !newindex.checked
-		}
+        //2. 새로운 배열에서 index의 값중에 checked를 not하여 덮어씀.
+        newtodo[index] = {
+            ...newindex,
+            checked: !newindex.checked
+        }
 
-		//3. setState
-		this.setState({
-			todos : newtodo
-		})
+        //3. setState
+        this.setState({
+            todos: newtodo
+        })
 
-	}
+    }
 
-	handleRemove = (id) =>{
-		const {todos} = this.state;
+    handleRemove = (e, id) => {
+        //이전 이벤트 작동 금지
+        e.stopPropagation();
 
-		const index = todos.map(x=>x.id).indexOf(id);
-		todos.splice(index, 1);
+        const { todos } = this.state;
 
-		const newtodo =  todos;
+        //선택된 값과 todos id 비교
+        const index = todos.map(x => x.id).indexOf(id);
 
-		this.setState({
-			todos: newtodo
-		})
+        //제거
+        todos.splice(index, 1);
 
-	}
-
-
-	handleSort = (sortedList) =>{
-			const newList = new Array();
-			sortedList.map((x)=>{
-				const newObj = {};
-				newObj.id = x.content.props.id;
-				newObj.text = x.content.props.text;
-				newObj.checked  = x.content.props.checked;
-				newList.push(newObj);
-			}
-		)
-
-			// console.log(newList);
-		this.setState({
-			todos : newList
-		})
-
-	}
+        //새로운 todos setState
+        const newtodo = todos;
+        this.setState({
+            todos: newtodo
+        })
+    }
 
 
-  	render() {
+    handleSort = (sortedList) => {
+        const newList = [];
+        sortedList.map((x) => {
+            const newObj = {};
+            newObj.id = x.content.props.id;
+            newObj.text = x.content.props.text;
+            newObj.checked = x.content.props.checked;
+            newList.push(newObj);
+        })
 
-        return (
-				<div className="wrap">
+        // console.log(newList);
+        this.setState({
+            todos: newList
+        })
 
-					<div className='title'> To-Do List </div>
+    }
 
-					<TodoInput value={this.state.input}
-										onChange = {this.handleChange}
-										onCreate = {this.handleCreate}
-										onKeyPress = {this.handleKeyPress}
-					/>
 
-					<TodoList
-					todos={this.state.todos}
-					onToggle={this.handleToggle}
-					onRemove={this.handleRemove}
-					onSort={this.handleSort}
+    render() {
 
-					/>
+        return ( <
+            div className = "wrap" >
 
-	            </div>
+            <
+            div className = 'title' > To - Do List < /div>
+
+            <
+            TodoInput value = { this.state.input } onChange = { this.handleChange } onCreate = { this.handleCreate } onKeyPress = { this.handleKeyPress }
+            />
+
+            <
+            TodoList todos = { this.state.todos } onToggle = { this.handleToggle } onRemove = { this.handleRemove } onSort = { this.handleSort }
+
+            />
+
+            <
+            /div>
         );
     }
 }

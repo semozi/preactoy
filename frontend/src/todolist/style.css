@@ -16,10 +16,11 @@ body{
 
 .wrap{
 	display: block;
-	width: 500px;
+	width: 700px;
 	height: 500px;
 	margin:0 auto;
 	border:1px solid #d1d1d1;
+	background: #f1f1f1;
 }
 
 
@@ -38,8 +39,22 @@ body{
 .todoInput{
 	display: block;
 	margin-bottom: 10px;
+	padding:12px;
+	text-align: left;
+	line-height: 40px;
 }
 
+.todoInput input{
+	width:620px;
+
+	line-height: 40px;
+
+}
+.todoInput button{
+	height: 46px;
+	line-height: 40px;
+	width:52px;
+}
 
 todoList{
 	display: block;
@@ -54,7 +69,7 @@ todoList{
 
 .todoItem div{
 	display: inline-block;
-	cursor: pointer;
+
 }
 
 .checked{
@@ -64,14 +79,26 @@ todoList{
 }
 
 .draggable {
-    background-color: yellow;
+    background-color: white;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius: 5px;
     margin: 10px;
+	cursor: pointer;
+	text-align: left;
 }
 
 .dragged {
     opacity: 0.7;
+
 }
 
 .placeholder {
   opacity: 0.5;
+  width:660px !important;
+  height:25px  !important;
+}
+
+.draggable button {
+	float: right;
 }

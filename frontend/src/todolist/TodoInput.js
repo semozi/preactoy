@@ -15,7 +15,7 @@ class TodoInput extends React.Component {
 
 				<button onClick={this.props.onCreate}
 						onKeyPress={this.props.handleKeyPress}>
-						추가
+						등록
 				</button>
 			</div>
        );
